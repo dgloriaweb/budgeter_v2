@@ -32,31 +32,12 @@ class ApiAuthController extends Controller
             'token' => $token,
             'userId' => $user->id
         ];
-        //need to create new person with following settings:
-        //user_id = this new user id
-        /* INSERT INTO `people`
-(`user_id`, `workplace`, `remote`, `workdays`, `saturday`, `sunday`, `bank_holidays`, `sat_sun_bh_only`, `normal_hours`, `nightshift`, `nightshift_only`, `other_shift`, `other_shift_only`, `overtime`) 
-VALUES 
-($user->id,1,1,1,0,0,0,0,1,0,0,0,0,0)
-  */
-        $person = new User;
+        $user = new User;
 
-        $person->user_id = $user->id;
-        $person->workplace = 1;
-        $person->remote = 0;
-        $person->workdays = 1;
-        $person->saturday = 0;
-        $person->sunday = 0;
-        $person->bank_holidays = 0;
-        $person->sat_sun_bh_only = 0;
-        $person->normal_hours = 1;
-        $person->nightshift = 0;
-        $person->nightshift_only = 0;
-        $person->other_shift = 0;
-        $person->other_shift_only = 0;
-        $person->overtime = 0;
+        $user->user_id = $user->id;
+       
         try {
-            $person->save();
+            $user->save();
         } catch (Exception $e) {
             report($e);
             return false;
@@ -89,7 +70,7 @@ VALUES
             return response(['errors' => "User doesn't exist"], 422);
         }
     }
-    
+
     public function logout(Request $request)
     {
         $token = $request->user()->token();
