@@ -12,10 +12,5 @@ class Partner extends Model
     protected $fillable = [
         'partner',
     ];
-    /** Relationships */
-    /* a partner has many mileage data */
-    public function Mileage(): HasMany
-    {
-        return $this->hasMany(Mileage::class);
-    }
+
 }

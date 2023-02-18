@@ -13,5 +13,6 @@ php artisan migrate:refresh --path=database\migrations\2023_02_13_063527_create_
 
 ### make controller with resources
 php artisan make:model -mrc name, singular, capitalized
-# budgeter_v2
-# budgeter_v2
+
+
+## api endpoints

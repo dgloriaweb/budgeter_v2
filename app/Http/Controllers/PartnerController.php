@@ -14,7 +14,8 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        //
+        $partners = Partner::all();
+        return $partners;
     }
 
     /**
@@ -22,9 +23,8 @@ class PartnerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -35,7 +35,14 @@ class PartnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'partner' => 'required|string|max:255',
+        ]);
+
+        $newPartner = new Partner([
+            'partner' => $request->partner,
+        ]);
+        $newPartner->save();
     }
 
     /**
