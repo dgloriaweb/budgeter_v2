@@ -17,7 +17,8 @@ class CreateMileagesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('date');
-            $table->mediumInteger('mileage')->nullable();
+            $table->mediumInteger('opening_mileage')->nullable();
+            $table->mediumInteger('closing_mileage')->nullable();
             $table->smallInteger('partner_id');
             $table->smallInteger('location_id_start');
             $table->smallInteger('location_id_end');
