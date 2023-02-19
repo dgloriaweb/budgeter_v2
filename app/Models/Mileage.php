@@ -32,4 +32,14 @@ class Mileage extends Model
     {
         return $this->belongsTo(Partner::class);
     }
+    /* mileage data belongs to one location */
+    public function LocationStart(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'location_id_start','id');
+    }
+    /* mileage data belongs to one location */
+    public function LocationEnd(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'location_id_end', 'id');
+    }
 }

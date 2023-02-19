@@ -14,9 +14,21 @@ class MileageController extends Controller
      */
     public function index()
     {
-        $mileages = Mileage::with('partner')->get();
+        $mileages = Mileage::with('partner', 'locationstart', 'locationend')->get();
         return $mileages;
     }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Mileage  $mileage
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Mileage $mileage)
+    {
+        //
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,17 +64,7 @@ class MileageController extends Controller
         return redirect(route('mileages.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mileage  $mileage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mileage $mileage)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
