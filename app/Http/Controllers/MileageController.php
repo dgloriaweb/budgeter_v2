@@ -24,13 +24,13 @@ class MileageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function report($id)
     {
         if ($id) {
-            $mileage = Mileage::with('partner', 'locationstart', 'locationend')->findOrFail($id);
-            return $mileage;
+            $mileages_by_user = Mileage::with('partner', 'locationstart', 'locationend')->find($id);
+            return $mileages_by_user;
         } else {
-            return response('error', 'job id missing');
+            return response('error', 'user_id id missing');
         }
     }
 

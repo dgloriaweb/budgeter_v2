@@ -18,3 +18,7 @@ php artisan make:model -mrc name, singular, capitalized
 
 
 ## api endpoints
+get('/partners')
+post('/partners')
+get('/mileages')
+get('/mileages/report/{id}')
