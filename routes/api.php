@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');
     Route::post('/partners', 'App\Http\Controllers\PartnerController@store')->name('partners');
     Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('partners');
+    Route::get('/mileages/{id}', 'App\Http\Controllers\MileageController@show')->name('partners');
 });
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {

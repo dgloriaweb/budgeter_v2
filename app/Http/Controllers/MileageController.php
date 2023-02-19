@@ -18,15 +18,20 @@ class MileageController extends Controller
         return $mileages;
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Mileage  $mileage
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Mileage $mileage)
+    public function show($id)
     {
-        //
+        if ($id) {
+            $mileage = Mileage::with('partner', 'locationstart', 'locationend')->findOrFail($id);
+            return $mileage;
+        } else {
+            return response('error', 'job id missing');
+        }
     }
 
 
@@ -64,7 +69,7 @@ class MileageController extends Controller
         return redirect(route('mileages.index'));
     }
 
-   
+
     /**
      * Show the form for editing the specified resource.
      *
