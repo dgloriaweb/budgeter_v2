@@ -27,7 +27,7 @@ class MileageController extends Controller
     public function report($id)
     {
         if ($id) {
-            $mileages_by_user = Mileage::with('partner', 'locationstart', 'locationend')->find($id);
+            $mileages_by_user = Mileage::with('partner', 'locationstart', 'locationend')->where('user_id', $id)->get();
             return $mileages_by_user;
         } else {
             return response('error', 'user_id id missing');
