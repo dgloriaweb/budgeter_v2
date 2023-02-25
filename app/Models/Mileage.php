@@ -13,7 +13,8 @@ class Mileage extends Model
     protected $fillable = [
         'user_id',
         'date',
-        'mileage',
+        'opening_mileage',
+        'closing_mileage',
         'partner_id',
         'location_id_start',
         'location_id_end',

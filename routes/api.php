@@ -26,11 +26,11 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
     // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');
-    Route::post('/partners', 'App\Http\Controllers\PartnerController@store')->name('partners');
-    Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('partners');
-    Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('partners');
+    Route::post('/partners', 'App\Http\Controllers\PartnerController@store');
+    Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
+    Route::post('/mileages', 'App\Http\Controllers\MileageController@store');
+    Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('mileages_report');
 });
-
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
     // public routes

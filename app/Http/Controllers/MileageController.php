@@ -55,18 +55,19 @@ class MileageController extends Controller
     {
         $validated = $request->validate([
             'date' => 'required|date',
-            'mileage' => 'required|integer',
+            'opening_mileage' => 'required|integer',
+            'closing_mileage' => 'required|integer',
             'partner_id' => 'required|integer',
             'location_id_start' => 'required|integer',
             'location_id_end' => 'required|integer',
             'personal_travel_at_start' => 'integer',
             'personal_travel_at_start' => 'integer',
-            'comments' => 'required|string|max:255',
+            'comments' => 'string|max:255',
         ]);
 
         $request->user()->mileages()->create($validated);
 
-        return redirect(route('mileages.index'));
+    
     }
 
 
