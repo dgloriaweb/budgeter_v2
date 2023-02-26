@@ -95,13 +95,12 @@ class MileageController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Mileage  $mileage
-     * @return \Illuminate\Http\Response
+     * Find the last row entry
      */
-    public function destroy(Mileage $mileage)
+    public function lastMileageData()
     {
-        //
+        $lastMileageData = Mileage::latest()->first();
+        return $lastMileageData;
+
     }
 }
