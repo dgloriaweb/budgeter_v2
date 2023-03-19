@@ -99,7 +99,8 @@ class MileageController extends Controller
      */
     public function lastMileageData()
     {
-        $lastMileageData = Mileage::latest()->first();
+        // $lastMileageData = Mileage::latest()->first();
+        $lastMileageData = Mileage::orderby('closing_mileage', 'desc')->first();
         return $lastMileageData;
 
     }
