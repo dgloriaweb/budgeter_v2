@@ -26,7 +26,7 @@ Route::middleware('auth:api')->group(function () {
     // Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
     // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
-    Route::get('/last_mileage_data', 'App\Http\Controllers\MileageController@lastMileageData');
+    Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');
     Route::post('/mileages', 'App\Http\Controllers\MileageController@store');
     Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('mileages_report');
     Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');

@@ -97,10 +97,11 @@ class MileageController extends Controller
     /**
      * Find the last row entry
      */
-    public function lastMileageData()
+    public function lastMileageData($id)
     {
         // $lastMileageData = Mileage::latest()->first();
-        $lastMileageData = Mileage::orderby('closing_mileage', 'desc')->first();
+        $lastMileageData = Mileage::where('user_id', $id)
+        ->orderby('closing_mileage', 'desc')->first();
         return $lastMileageData;
 
     }
