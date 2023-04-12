@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
     Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');
     Route::post('/mileages', 'App\Http\Controllers\MileageController@store');
+    Route::post('/mileages/{id}', 'App\Http\Controllers\MileageController@update');
     Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('mileages_report');
     Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');
     Route::post('/partners', 'App\Http\Controllers\PartnerController@store');

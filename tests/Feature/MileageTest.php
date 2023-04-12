@@ -19,8 +19,7 @@ class MileageTest extends TestCase
         $this->withoutExceptionHandling();
 
         Passport::actingAs(
-            User::factory()->create(),
-            ['mileages']
+            User::factory()->create()
         );
 
         $response = $this->get('/api/mileages');
@@ -36,8 +35,7 @@ class MileageTest extends TestCase
         $this->withoutExceptionHandling();
 
         Passport::actingAs(
-            User::factory()->create(),
-            ['mileages']
+            User::factory()->create()
         );
 
         $response = $this->post(
@@ -48,6 +46,34 @@ class MileageTest extends TestCase
                 'closing_mileage' => '11112',
                 'partner_id' => '1',
                 'location_id_start' => '1',
+                'location_id_end' => '1',
+                'personal_travel_at_start' => '0',
+                'personal_travel_at_start' => '0',
+                'comments' => 'testing',
+            ]
+        );
+        $response->assertStatus(200);
+    }
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+    public function update_mileages()
+    {
+        $this->withoutExceptionHandling();
+        Passport::actingAs(
+            User::factory()->create()
+        );
+        $response = $this->post(
+            '/api/mileages/261',
+            [
+                'id' => '261',
+                'date' => '2023-04-09',
+                'opening_mileage' => '98854',
+                'closing_mileage' => '98860',
+                'partner_id' => '7',
+                'location_id_start' => '4',
                 'location_id_end' => '1',
                 'personal_travel_at_start' => '0',
                 'personal_travel_at_start' => '0',

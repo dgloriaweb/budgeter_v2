@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mileage;
+use Exception;
 use Illuminate\Http\Request;
 
 class MileageController extends Controller
@@ -71,16 +72,7 @@ class MileageController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mileage  $mileage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mileage $mileage)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -89,9 +81,29 @@ class MileageController extends Controller
      * @param  \App\Models\Mileage  $mileage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mileage $mileage)
+    public function update(Request $request)
     {
-        //
+        
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'opening_mileage' => 'required|integer',
+            'closing_mileage' => 'required|integer',
+            'partner_id' => 'required|integer',
+            'location_id_start' => 'required|integer',
+            'location_id_end' => 'required|integer',
+            'personal_travel_at_start' => 'integer',
+            'personal_travel_at_start' => 'integer',
+            'comments' => 'string|max:255',
+        ]);
+
+        try {
+            $request->user()->mileages()->update($validated);
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+
+
     }
 
     /**
