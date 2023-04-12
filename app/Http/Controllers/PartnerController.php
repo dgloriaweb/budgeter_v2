@@ -38,11 +38,8 @@ class PartnerController extends Controller
         $validated = $request->validate([
             'partner' => 'required|string|max:255',
         ]);
-
-        $newPartner = new Partner([
-            'partner' => $request->partner,
-        ]);
-        $newPartner->save();
+        
+        $request->partners()->create($validated);
     }
 
     /**
