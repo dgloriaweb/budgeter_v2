@@ -95,9 +95,9 @@ class MileageController extends Controller
             'personal_travel_at_start' => 'integer',
             'comments' => 'string|max:255',
         ]);
-
         try {
-            $request->user()->mileages()->update($validated);
+            $request->mileage->update($validated);
+            die(print_r($validated));
         } catch (Exception $e) {
             return $e;
         }

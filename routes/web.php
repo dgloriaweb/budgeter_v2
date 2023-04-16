@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::post('/books', 'App\Http\Controllers\Tests\BookController@store');
+Route::post('/books/{id}', 'App\Http\Controllers\Tests\BookController@update');

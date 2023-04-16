@@ -36,10 +36,12 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create([
-            'title' => 'title',
-            'author' => 'author'
+        $data = request()->validate([
+            'title' => 'required',
+            'author' => 'required',
         ]);
+
+        Book::create($data);
     }
 
     /**
@@ -71,9 +73,14 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Book $book)
     {
-        //
+        $data = request()->validate([
+            'title' => 'required',
+            'author' => 'required',
+        ]);
+
+        $book->update($data);
     }
 
     /**
