@@ -41,6 +41,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/register', 'App\Http\Controllers\Auth\ApiAuthController@register')->name('register.api');
     Route::post('/resetPassword', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('resetPassword.api');
 
+    //test routes
+    Route::post('/books', 'App\Http\Controllers\Tests\BookController@store');
+    Route::post('/books/{id}', 'App\Http\Controllers\Tests\BookController@update');
+
+
 
     // Our protected routes, on the other hand, look like this:
     Route::middleware('auth:api')->group(function () {

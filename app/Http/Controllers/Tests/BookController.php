@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tests;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tests\Book;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -29,19 +30,25 @@ class BookController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a new book in the database.
      */
     public function store(Request $request)
     {
-        $data = request()->validate([
+        // Validate the request...
+        $book = request()->validate([
             'title' => 'required',
             'author' => 'required',
         ]);
 
-        Book::create($data);
+        // Book::create($data); 
+        $book = new Book;
+
+        $book->title = $request->title;
+        $book->author = $request->author;
+
+        $book->save();
+
+        return 200;
     }
 
     /**
@@ -73,14 +80,19 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Book $book)
+    public function update(Book $book, int $id)
     {
-        $data = request()->validate([
+        $book = request()->validate([
             'title' => 'required',
             'author' => 'required',
         ]);
 
-        $book->update($data);
+        $book = Book::where('id',$id);
+
+        $book->title = 'Paris to London';
+        $book->author = 'Paris to London';
+
+        $book->save();
     }
 
     /**
