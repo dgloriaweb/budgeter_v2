@@ -80,17 +80,17 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Book $book, int $id)
+    public function update(Request $request, int $id)
     {
+        // Validate the request...
         $book = request()->validate([
             'title' => 'required',
             'author' => 'required',
         ]);
 
-        $book = Book::where('id',$id);
-
-        $book->title = 'Paris to London';
-        $book->author = 'Paris to London';
+        $book = Book::find($id);
+        $book->title = $request->title;
+        $book->author = $request->author;
 
         $book->save();
     }
