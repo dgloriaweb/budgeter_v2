@@ -89,7 +89,7 @@ class MileageController extends Controller
      * @param  \App\Models\Mileage  $mileage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, int $id)
     {
 
         $validated = $request->validate([
@@ -101,14 +101,21 @@ class MileageController extends Controller
             'location_id_end' => 'required|integer',
             'personal_travel_at_start' => 'integer',
             'personal_travel_at_start' => 'integer',
-            'comments' => 'string|max:255',
+            'comments' => 'nullable|string|max:255',
         ]);
-        try {
-            $request->mileage->update($validated);
-            die(print_r($validated));
-        } catch (Exception $e) {
-            return $e;
-        }
+
+        $mileage = Mileage::find($id);
+        $mileage->date = $request->date;
+        $mileage->opening_mileage = $request->opening_mileage;
+        $mileage->closing_mileage = $request->closing_mileage;
+        $mileage->partner_id = $request->partner_id;
+        $mileage->location_id_start = $request->location_id_start;
+        $mileage->location_id_end = $request->location_id_end;
+        $mileage->personal_travel_at_start = $request->personal_travel_at_start;
+        $mileage->personal_travel_at_end = $request->personal_travel_at_end;
+        $mileage->comments = $request->comments;
+
+        $mileage->save();
     }
 
     /**
