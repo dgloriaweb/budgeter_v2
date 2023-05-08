@@ -22,6 +22,19 @@ class MileageController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // $lastMileageData = Mileage::latest()->first();
+        $mileageDataById = Mileage::where('id', $id)->get();
+        return $mileageDataById;
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -67,12 +80,7 @@ class MileageController extends Controller
         ]);
 
         $request->user()->mileages()->create($validated);
-
-    
     }
-
-
-    
 
     /**
      * Update the specified resource in storage.
@@ -83,7 +91,7 @@ class MileageController extends Controller
      */
     public function update(Request $request)
     {
-        
+
         $validated = $request->validate([
             'date' => 'required|date',
             'opening_mileage' => 'required|integer',
@@ -101,9 +109,6 @@ class MileageController extends Controller
         } catch (Exception $e) {
             return $e;
         }
-       
-
-
     }
 
     /**
@@ -113,8 +118,7 @@ class MileageController extends Controller
     {
         // $lastMileageData = Mileage::latest()->first();
         $lastMileageData = Mileage::where('user_id', $id)
-        ->orderby('closing_mileage', 'desc')->first();
+            ->orderby('closing_mileage', 'desc')->first();
         return $lastMileageData;
-
     }
 }
