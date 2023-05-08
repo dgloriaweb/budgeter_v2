@@ -87,7 +87,7 @@ class BookController extends Controller
             'title' => 'required',
             'author' => 'required',
         ]);
-
+        
         $book = Book::find($id);
         $book->title = $request->title;
         $book->author = $request->author;
