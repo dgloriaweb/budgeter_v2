@@ -19,7 +19,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['dbgtr.netlify.app/*','dbgtr.netlify.app','localhost:5173','localhost:5173/*'],
+    // 'allowed_origins' => ['dbgtr.netlify.app/*','dbgtr.netlify.app','localhost:5173','localhost:5173/*'],
+    'allowed_origins' => ['https://dbgtr.netlify.app/*','https://dbgtr.netlify.app','http://localhost:5173','http://localhost:5173/*'],
 
     'allowed_origins_patterns' => [],
 
