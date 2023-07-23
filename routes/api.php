@@ -21,20 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 // If developers want to use the middleware in a given route, all you need to do is add it to the route function like this:
 // Route::post('route','Controller@method')->middleware('api.superAdmin');
-Route::middleware('auth:api')->group(function () {
-    Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users');
-    // Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
-    // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
-    Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
-    Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');
-    Route::get('/mileages/{id}', 'App\Http\Controllers\MileageController@show');
-    Route::post('/mileages', 'App\Http\Controllers\MileageController@store');
-    Route::post('/mileages/{id}', 'App\Http\Controllers\MileageController@update');
-    Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('mileages_report');
-    Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');
-    Route::post('/partners', 'App\Http\Controllers\PartnerController@store');
-    Route::get('/locations', 'App\Http\Controllers\LocationController@index')->name('locations');
-});
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
     // public routes
@@ -53,4 +39,18 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         // our routes to be protected will go in here
         Route::post('/logout', 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
     });
+});
+Route::middleware('auth:api')->group(function () {
+    Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users');
+    // Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
+    // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+    Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
+    Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');
+    Route::get('/mileages/{id}', 'App\Http\Controllers\MileageController@show');
+    Route::post('/mileages', 'App\Http\Controllers\MileageController@store');
+    Route::post('/mileages/{id}', 'App\Http\Controllers\MileageController@update');
+    Route::get('/mileage_report/{id}', 'App\Http\Controllers\MileageController@report')->name('mileages_report');
+    Route::get('/partners', 'App\Http\Controllers\PartnerController@index')->name('partners');
+    Route::post('/partners', 'App\Http\Controllers\PartnerController@store');
+    Route::get('/locations', 'App\Http\Controllers\LocationController@index')->name('locations');
 });
