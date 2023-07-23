@@ -15,6 +15,8 @@ return [
     |
     */
 
+    'hosts' => 'https://budgeterapi.dgloriaapi.co.uk',
+
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
