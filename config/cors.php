@@ -15,14 +15,11 @@ return [
     |
     */
 
-    'hosts' => 'https://budgeterapi.dgloriaapi.co.uk',
-
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => ['dbgtr.netlify.app/*','dbgtr.netlify.app','localhost:5173','localhost:5173/*'],
-    'allowed_origins' => ['https://dbgtr.netlify.app/*','https://dbgtr.netlify.app','http://localhost:5173','http://localhost:5173/*'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
@@ -32,6 +29,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];
