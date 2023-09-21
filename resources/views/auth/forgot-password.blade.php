@@ -8,17 +8,12 @@
 </head>
 
 <body>
-    <form action="/api/forgot-password" method="POST">
+    <form action="#" method="POST">
         @csrf
         <label for="email">Please enter your email address</label>
         <input type="email" name="email">
         <button>Submit</button>
     </form>
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
 </body>
 
 </html>
