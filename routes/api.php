@@ -3,7 +3,7 @@
 use App\Http\Controllers\PartnerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Password;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +21,26 @@ use Illuminate\Support\Facades\Route;
 
 // If developers want to use the middleware in a given route, all you need to do is add it to the route function like this:
 // Route::post('route','Controller@method')->middleware('api.superAdmin');
+
+/* password reset */
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
+/******************* */
+
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
     // public routes
