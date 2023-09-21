@@ -34,7 +34,7 @@ Route::get('/forgot-password', function () {
 
 //process the form and send email
 Route::post('/forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
+    $request->validate(['email' => 'required|email|exists:users,email']);
 
     $status = Password::sendResetLink(
         $request->only('email')

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="/reset-password" method="POST">
+    <form action="/api/reset-password" method="POST">
         @csrf
         <label for="email">Please enter your email address</label>
         <input type="email" name="email">
