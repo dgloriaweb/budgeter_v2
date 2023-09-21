@@ -11,7 +11,7 @@
     <form action="#" method="POST">
         @csrf
         <label for="email">Please enter your email address</label>
-        <input type="email" name="email">
+        <input type="email" name="email" value="dgloria.web@gmail.com">
         <button>Submit</button>
     </form>
 </body>

@@ -49,6 +49,6 @@ class ForgotPasswordTest extends TestCase
             'email' => 'dgloria.web@gmail.com'
         ]);
 
-        $response->assertOk();
+        $response->assertRedirect(); // Ensure that a redirect occurred
     }
 }
