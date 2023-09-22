@@ -19,12 +19,13 @@ class MailResetPasswordNotification extends ResetPassword
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
         //change back if not working
-        // parent::__construct($token);
-        parent::__construct($this->token);
-        $this->pageUrl = 'localhost:8080';
+        parent::__construct($token);
+        // parent::__construct($this->token);
+        // $this->pageUrl = config('app.url');
+        $this->pageUrl = 'http://localhost:8000/api/reset-password';
             // we can set whatever we want here, or use .env to set environmental variables
     }
 

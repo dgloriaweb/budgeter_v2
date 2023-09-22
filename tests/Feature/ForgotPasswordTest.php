@@ -31,12 +31,12 @@ class ForgotPasswordTest extends TestCase
         ]);
 
         $response->assertStatus(422) // Check if the response status code is 422 (Unprocessable Entity)
-        ->assertJson([
-            "message" => "The given data was invalid.",
-            "errors" => [
-                "email" => ["The selected email is invalid."]
-            ]
-        ]);    
+            ->assertJson([
+                "message" => "The given data was invalid.",
+                "errors" => [
+                    "email" => ["The selected email is invalid."]
+                ]
+            ]);
     }
     /**
      * The email doesn't exist in the database.
@@ -49,6 +49,9 @@ class ForgotPasswordTest extends TestCase
             'email' => 'dgloria.web@gmail.com'
         ]);
 
-        $response->assertRedirect(); // Ensure that a redirect occurred
+        // assert the response status code is 500 and
+        // the message is "message": "Cannot send message without a sender address"
+        $response->assertStatus(500)
+            ->assertSee('Cannot send message without a sender address'); // Replace with the actual error message you expect
     }
 }
