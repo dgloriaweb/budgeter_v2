@@ -48,7 +48,7 @@ Route::post('/forgot-password', function (Request $request) {
 /* after user clicked password reset link */
 // show the password reset form
 Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.forgot-password', ['token' => $token]);
+    return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
 // process the password reset form
