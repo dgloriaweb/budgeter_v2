@@ -25,7 +25,7 @@ class MailResetPasswordNotification extends ResetPassword
         parent::__construct($token);
         // parent::__construct($this->token);
         // $this->pageUrl = config('app.url');
-        $this->pageUrl = 'http://localhost:8000/api/reset-password/';
+        $this->pageUrl = 'http://localhost:8000/api/reset-password';
             // we can set whatever we want here, or use .env to set environmental variables
     }
 
@@ -54,7 +54,7 @@ class MailResetPasswordNotification extends ResetPassword
         return (new MailMessage)
             ->subject(Lang::get('Reset application Password'))
             ->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))
-            ->action(Lang::get('Reset Password'), $this->pageUrl . "?token=" . $this->token)
+            ->action(Lang::get('Reset Password'), $this->pageUrl . "/" . $this->token)
             ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.users.expire')]))
             ->line(Lang::get('If you did not request a password reset, no further action is required.'));
     }
