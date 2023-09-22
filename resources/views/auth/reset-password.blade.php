@@ -16,7 +16,7 @@
         <input type="password" name="password">
         <label for="password_confirmation">Please confirm your password</label>
         <input type="password" name="password_confirmation">
-        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="token" id="token" value="{{ $token }}">
         <button>Submit</button>
     </form>
 </body>
