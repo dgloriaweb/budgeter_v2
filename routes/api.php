@@ -47,35 +47,35 @@ Route::post('/forgot-password', function (Request $request) {
 
 /* after user clicked password reset link */
 // show the password reset form
-Route::get('/reset-password/{token}', function (string $token) {
-    return view('auth.reset-password', ['token' => $token]);
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.forgot-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
 // process the password reset form
-Route::post('/reset-password', function (Request $request) {
-    $request->validate([
-        'token' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8|confirmed',
-    ]);
+// Route::post('/reset-password', function (Request $request) {
+//     $request->validate([
+//         'token' => 'required',
+//         'email' => 'required|email',
+//         'password' => 'required|min:8|confirmed',
+//     ]);
 
-    $status = Password::reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function (User $user, string $password) {
-            $user->forceFill([
-                'password' => Hash::make($password)
-            ])->setRememberToken(Str::random(60));
+//     $status = Password::reset(
+//         $request->only('email', 'password', 'password_confirmation', 'token'),
+//         function (User $user, string $password) {
+//             $user->forceFill([
+//                 'password' => Hash::make($password)
+//             ])->setRememberToken(Str::random(60));
 
-            $user->save();
+//             $user->save();
 
-            event(new PasswordReset($user));
-        }
-    );
+//             event(new PasswordReset($user));
+//         }
+//     );
 
-    return $status === Password::PASSWORD_RESET
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withErrors(['email' => [__($status)]]);
-})->middleware('guest')->name('password.update');
+//     return $status === Password::PASSWORD_RESET
+//         ? redirect()->route('login')->with('status', __($status))
+//         : back()->withErrors(['email' => [__($status)]]);
+// })->middleware('guest')->name('password.update');
 /******************* */
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
