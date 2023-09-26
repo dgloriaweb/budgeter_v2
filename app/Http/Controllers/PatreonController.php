@@ -12,12 +12,12 @@ class PatreonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $code)
     {
         // the returned url contains the code
         // https://dailydriver.info/patreon?code=ROlrJkexbbTgpBX6nTFlbndc3CIw4k&state=None
 
-        $code = $request->input('code');
+       
         return $code;
 
     }
