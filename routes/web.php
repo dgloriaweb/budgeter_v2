@@ -16,10 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-    //patreon api
-    // Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
-    Route::get('/patreon', function () {
-        $code = request()->query('code');
-        return 'code: ' . $code;
-    });
