@@ -30,7 +30,7 @@ class PatreonController extends Controller
             &client_secret= env("PATREON_CLIENT_SECRET")
             &redirect_uri=env("PATREON_REDIRECT_URI") */
 
-        $response = Http::post("www.patreon.com/api/oauth2/token", [
+        $response = Http::post("https://www.patreon.com/api/oauth2/token", [
             "code" => $code,
             "grant_type" => "authorization_code",
             "client_id" => env("PATREON_CLIENT_ID"),
