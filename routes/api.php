@@ -111,3 +111,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/partners', 'App\Http\Controllers\PartnerController@store');
     Route::get('/locations', 'App\Http\Controllers\LocationController@index')->name('locations');
 });
+
+//patreon api
+Route::get('/patreon', 'App\Http\Controllers\PatreonController@index')->name('users');
+ 
