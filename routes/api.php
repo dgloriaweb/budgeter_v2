@@ -98,7 +98,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     });
 
     //patreon api
-    Route::get('/patreon', 'App\Http\Controllers\PatreonController@index')->name('patreongetcode');
+    Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
 
 });
 Route::middleware('auth:api')->group(function () {
