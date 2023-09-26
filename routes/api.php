@@ -97,10 +97,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/logout', 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
     });
     
-    //patreon api
-    Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
-
-
 
 });
 Route::middleware('auth:api')->group(function () {
@@ -118,4 +114,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/locations', 'App\Http\Controllers\LocationController@index')->name('locations');
 });
 
- 
+     //patreon api
+     Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
