@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Patreon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PatreonController extends Controller
 {
+    // Todo: make a service to run the code to connect to the api
+    // https://www.patreon.com/oauth2/authorize?response_type=code&client_id=env("PATREON_CLIENT_ID")&redirect_uri=env("PATREON_REDIRECT_URI")
+
+
     /**
      * Display a listing of the resource.
      * @param  \Illuminate\Http\Request  $request
@@ -15,9 +20,24 @@ class PatreonController extends Controller
     public function index(Request $request)
     {
         // the returned url contains the code
-        // https://dailydriver.info/patreon?code=ROlrJkexbbTgpBX6nTFlbndc3CIw4k&state=None
+        // https://budgeterapi.co.uk/api/patreon?code=<single use code>&state=None
         $code = $request->query('code');
-        return 'code: '. $code;
+
+        /* POST www.patreon.com/api/oauth2/token
+            code=$code
+            &grant_type=authorization_code
+            &client_id=env("PATREON_CLIENT_ID")
+            &client_secret= env("PATREON_CLIENT_SECRET")
+            &redirect_uri=env("PATREON_REDIRECT_URI") */
+
+            $response = Http::post('www.patreon.com/api/oauth2/token', [
+                'grant_type' => 'authorization_code',
+                'client_id' => env("PATREON_CLIENT_ID"),
+                'client_secret' => env("PATREON_CLIENT_SECRET"),
+                'redirect_uri' => env("PATREON_REDIRECT_URI"),
+            ]);
+
+        return $response;
     }
 
     /**
