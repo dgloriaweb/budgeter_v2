@@ -17,8 +17,8 @@ class PatreonController extends Controller
         // the returned url contains the code
         // https://dailydriver.info/patreon?code=ROlrJkexbbTgpBX6nTFlbndc3CIw4k&state=None
         $code = $request->query('code');
-        // return 'code: '. $code;
-        return 'hello world ';
+        return 'code: '. $code;
+        // return 'hello world ';
     }
 
     /**
