@@ -18,7 +18,7 @@ class PatreonController extends Controller
         // https://dailydriver.info/patreon?code=ROlrJkexbbTgpBX6nTFlbndc3CIw4k&state=None
 
        
-        return $code;
+        return 'code: '. $code;
 
     }
 
