@@ -17,3 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+    //patreon api
+    Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
+
