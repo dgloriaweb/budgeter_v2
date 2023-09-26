@@ -38,7 +38,18 @@ class PatreonController extends Controller
             "redirect_uri" => env("PATREON_REDIRECT_URI"),
         ]);
 
-        dd($response);
+        /* result:
+        {
+            "access_token": "5ePCKOLooFIgco3EkhSUTRbxhm_y3D6tWHHb3orBVMc",
+            "expires_in": 2678400,
+            "token_type": "Bearer",
+            "scope": "identity",
+            "refresh_token": "efVdkZ64D_Ip3QpBE4aw8mVD0mxM4UPq-zAvLH5KA10",
+            "version": "0.0.1"
+        }
+        */
+        // Todo: save this into database - create schema and run migration
+
     }
 
     /**
