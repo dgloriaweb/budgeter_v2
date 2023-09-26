@@ -38,7 +38,7 @@ class PatreonController extends Controller
             "redirect_uri" => env("PATREON_REDIRECT_URI"),
         ]);
 
-        return $response;
+        dd($response);
     }
 
     /**
