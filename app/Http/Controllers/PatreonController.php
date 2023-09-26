@@ -49,6 +49,7 @@ class PatreonController extends Controller
         }
         */
         // Todo: save this into database - create schema and run migration
+        // https://docs.patreon.com/#step-7-keeping-up-to-date
 
     }
 
