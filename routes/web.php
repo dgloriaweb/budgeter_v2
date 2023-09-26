@@ -18,5 +18,8 @@ Route::get('/', function () {
 });
 
     //patreon api
-    Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
-
+    // Route::get('/patreon', 'App\Http\Controllers\PatreonController@index');
+    Route::get('/patreon', function () {
+        $code = request()->query('code');
+        return 'code: ' . $code;
+    });
