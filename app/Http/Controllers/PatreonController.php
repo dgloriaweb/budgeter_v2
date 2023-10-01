@@ -40,11 +40,11 @@ class PatreonController extends Controller
 
         /* result:
         {
-            "access_token": "5ePCKOLooFIgco3EkhSUTRbxhm_y3D6tWHHb3orBVMc",
+            "access_token": "",
             "expires_in": 2678400,
             "token_type": "Bearer",
             "scope": "identity",
-            "refresh_token": "efVdkZ64D_Ip3QpBE4aw8mVD0mxM4UPq-zAvLH5KA10",
+            "refresh_token": "",
             "version": "0.0.1"
         }
         */
