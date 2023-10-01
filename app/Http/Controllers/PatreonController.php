@@ -117,10 +117,10 @@ class PatreonController extends Controller
         //run the service and update table
         $patreonService = new PatreonService();
         $patrons = $patreonService->getPatrons();
-        dd($patrons['attributes']);
+        dd($patrons['included']['attributes']);
         $newPatron = [
-            'email' => $patrons['attributes']['email'],
-            'created' => $patrons['attributes']['created']
+            'email' => $patrons['included']['attributes']['email'],
+            'created' => $patrons['included']['attributes']['created']
         ];
     }
 }
