@@ -119,7 +119,7 @@ class PatreonController extends Controller
         //run the service and update table
         $patreonService = new PatreonService();
         $patrons = $patreonService->getPatrons();
-        //todo: change to foreach
+
         $patronsData = $patrons['included'];
         foreach ($patronsData as $patronsItem) {
 

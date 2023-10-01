@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\PatreonController;
 use App\Models\Patreon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class PatreonTest extends TestCase
@@ -20,4 +22,5 @@ class PatreonTest extends TestCase
             'email' => 'dgloria@freemail.hu'
         ]);        
     }
+
 }
