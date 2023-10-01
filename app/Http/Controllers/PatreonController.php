@@ -114,13 +114,28 @@ class PatreonController extends Controller
      */
     public function getPatrons(Patreon $patreon)
     {
+        // empty table
+        Patreon::truncate();
         //run the service and update table
         $patreonService = new PatreonService();
         $patrons = $patreonService->getPatrons();
-        $newPatron = [
-            'email' => $patrons['included'][0]['attributes']['email'],
-            'created' => $patrons['included'][0]['attributes']['created']
-        ];
-        dd($newPatron);
+        //todo: change to foreach
+        $patronsData = $patrons['included'];
+        foreach ($patronsData as $patronsItem) {
+
+            // insert new data into the table
+            $errors = 0;
+            $patreon = new Patreon([
+                'email' => $patronsItem['attributes']['email'],
+                'pledge_created' => $patronsItem['attributes']['created']
+            ]);
+            if (!$patreon->save()) {
+                $errors++;
+            }
+        }
+        if ($errors > 0) {
+            return response(500);
+        }
+        return response(200);
     }
 }
