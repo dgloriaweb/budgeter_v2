@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patreon;
 use Illuminate\Http\Request;
+use App\Services\PatreonService;
 use Illuminate\Support\Facades\Http;
 
 class PatreonController extends Controller
@@ -107,15 +108,15 @@ class PatreonController extends Controller
     {
         //
     }
-
     /**
-     * Remove the specified resource from storage.
-     *
+     * run the service and update table.
      * @param  \App\Models\Patreon  $patreon
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Patreon $patreon)
+    public function getPatrons(Patreon $patreon)
     {
-        //
+        //run the service and update table
+        $patreonService = new PatreonService();
+        $patrons = $patreonService->getPatrons();
+        dd($patrons);
     }
 }

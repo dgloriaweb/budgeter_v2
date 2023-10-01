@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Patreon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,12 +13,11 @@ class PatreonTest extends TestCase
      *
      * @return void
      */
-    public function test_send_client_Id_to_get_one_time_pass()
+    public function test_get_pledge_data()
     {
-        $response = $this->get('www.patreon.com/oauth2/authorize', [
-            "response_type" => "code",
-            "client_id" => "7QGSkXKP80BGPCGk5W3V1oonv0YjkEn2yPbRpFvTX-BNDtVo1NgbZLWTwWm16MB3",
-            "redirect_uri" => "https://dailydriver.info/patreon"
-        ]);
+        //assert if the table patreons has an email dgloria@freemail.hu
+        $this->assertDatabaseHas('patreons', [
+            'email' => 'dgloria@freemail.hu'
+        ]);        
     }
 }

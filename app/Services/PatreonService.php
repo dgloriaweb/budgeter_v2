@@ -4,14 +4,16 @@ namespace App\Services;
 
 use App\Models\Patreon;
 use Exception;
+use Illuminate\Support\Facades\Http;
 
-class ParteonService
+class PatreonService
 {
     protected $patreon;
 
-    public function __construct(Patreon $patreon)
-    {
-        $this->patreon = $patreon;
-    }
  
+    public function getPatrons(){
+        // connect to the api, and store the data in the database
+        $response = Http::get("https://www.patreon.com/api/oauth2/api/campaigns/11120253/pledges?include=patron.null");
+        return $response;
+    }
 }

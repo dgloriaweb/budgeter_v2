@@ -99,6 +99,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::middleware('auth:api')->group(function () {
         // our routes to be protected will go in here
         Route::post('/logout', 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
+        Route::get('/patreonupdate', 'App\Http\Controllers\PatreonController@getPatrons')->name('patreonupdate');
+
     });
 });
 Route::middleware('auth:api')->group(function () {
