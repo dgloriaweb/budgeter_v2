@@ -119,7 +119,6 @@ class PatreonController extends Controller
         //run the service and update table
         $patreonService = new PatreonService();
         $patrons = $patreonService->getPatrons();
-        dd($patrons);
         if($patrons['errors'] && $patrons['errors'][0]['status'] == '401') {
             return response("Invalid Bearer Token", 401);
         }
