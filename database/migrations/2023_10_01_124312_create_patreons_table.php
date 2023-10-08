@@ -17,6 +17,7 @@ class CreatePatreonsTable extends Migration
             $table->id();
             $table->string('email'); // included->attributes->email:dgloria@freemail.hu
             $table->string('pledge_created'); //included->attributes->created:"2023-09-28T09:33:37.000+00:00"
+            $table->string('last_response_code'); // 200 if the response code is 200
             $table->timestamps();
         });
     }

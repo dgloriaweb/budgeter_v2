@@ -119,9 +119,10 @@ class PatreonController extends Controller
         //run the service and update table
         $patreonService = new PatreonService();
         $patrons = $patreonService->getPatrons();
-   
+
         //test for token or unauthorized error
         if (array_key_exists('errors', $patrons) && $patrons['errors'][0]['status'] == '401') {
+            $this->sendErrorEmail();
             return response("Unauthorized. (Invalid Bearer Token)", 401);
         }
 
@@ -139,8 +140,15 @@ class PatreonController extends Controller
             }
         }
         if ($errors > 0) {
+            $this->sendErrorEmail();
             return response(500);
         }
         return response(200);
+    }
+    
+    //TODO: implement code for emailing me if cron response is not 200
+    public function sendErrorEmail()
+    {
+        // send me error email: there was an issue in the api response. Please check
     }
 }

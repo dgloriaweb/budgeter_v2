@@ -11,6 +11,7 @@ class Patreon extends Model
     
     protected $fillable = [
         'email',
-        'pledge_created'
+        'pledge_created',
+        'last_response_code'
     ];
 }
