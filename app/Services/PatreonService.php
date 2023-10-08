@@ -17,4 +17,5 @@ class PatreonService
         $response = Http::withToken(env('PATREON_TEMP_BEARER'))->get("https://www.patreon.com/api/oauth2/api/campaigns/11120253/pledges?include=patron.null");
         return $response->json();
     }
+
 }
