@@ -20,9 +20,8 @@ class Partner extends Model
         return $this->hasMany(Mileage::class);
     }
     
-    public function User(): HasMany
+    public function Users()
     {
-        return $this->hasMany(User::class, 'user_partner');
+        return $this->belongsToMany(User::class, 'user_partner');
     }
-    
 }
