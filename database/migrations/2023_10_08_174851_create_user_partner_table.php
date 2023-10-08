@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserPartnerLinksTable extends Migration
+class CreateUserPartnerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserPartnerLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_partner_links', function (Blueprint $table) {
+        Schema::create('user_partner', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('user_id');
             $table->smallInteger('partner_id');
@@ -28,6 +28,6 @@ class CreateUserPartnerLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_partner_links');
+        Schema::dropIfExists('user_partner');
     }
 }

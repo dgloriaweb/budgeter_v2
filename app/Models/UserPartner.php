@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserPartnerLink extends Model
+class UserPartner extends Model
 {
     use HasFactory;
 
@@ -20,5 +20,9 @@ class UserPartnerLink extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    /* userpartner data belongs to one partner */
+    public function Partner(): BelongsTo
+    {
+        return $this->belongsTo(Partner::class);
+    }
 }
