@@ -19,4 +19,5 @@ class Partner extends Model
     {
         return $this->hasMany(Mileage::class);
     }
+    
 }

@@ -33,7 +33,7 @@ class UserController extends Controller
     public function show($id = null)
     {
         if ($id) {
-            $user = User::findOrFail($id);
+            $user = User::with('UserPartnerLinks')->findOrFail($id);
             $response = $user;
             return response($response, 200);
         } else {

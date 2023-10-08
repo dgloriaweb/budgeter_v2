@@ -105,7 +105,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 });
 Route::middleware('auth:api')->group(function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users');
-    // Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
+    Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
     // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
     Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');

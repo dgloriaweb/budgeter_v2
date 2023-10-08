@@ -61,4 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Mileage::class);
     }
+
+    public function UserPartnerLinks(): HasMany
+    {
+        return $this->hasMany(UserPartnerLink::class);
+    }
 }
