@@ -48,9 +48,7 @@ class ApiAuthController extends Controller
         }
 
         //email test
-        Mail::to('recipient@domain.com')
-            ->cc('cc@domain.com')
-            ->bcc('bcc@domain.com')
+        Mail::to('dgloria.work@gmail.com')
             ->send(new TestEmail());
         return response($response, 200);
     }
