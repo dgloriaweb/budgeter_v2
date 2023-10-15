@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-//email test
-use App\Mail\TestEmail;
-use Illuminate\Support\Facades\Mail;
 
 class ApiAuthController extends Controller
 {
@@ -46,11 +43,6 @@ class ApiAuthController extends Controller
             report($e);
             return false;
         }
-
-        //email test
-        Mail::to('dgloria.work@gmail.com')
-            ->send(new TestEmail());
-        return response($response, 200);
     }
 
     public function login(Request $request)
