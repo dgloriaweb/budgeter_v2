@@ -15,6 +15,7 @@ class Partner extends Model
     ];
     /** Relationships */
     
+    
     public function Mileages(): HasMany
     {
         return $this->hasMany(Mileage::class);

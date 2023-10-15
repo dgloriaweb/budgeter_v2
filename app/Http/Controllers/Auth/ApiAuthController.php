@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+//email test
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
+
 class ApiAuthController extends Controller
 {
     //https://www.toptal.com/laravel/passport-tutorial-auth-user-access
@@ -35,13 +39,19 @@ class ApiAuthController extends Controller
         $user = new User;
 
         $user->user_id = $user->id;
-       
+
         try {
             $user->save();
         } catch (Exception $e) {
             report($e);
             return false;
         }
+
+        //email test
+        Mail::to('recipient@domain.com')
+            ->cc('cc@domain.com')
+            ->bcc('bcc@domain.com')
+            ->send(new TestEmail());
         return response($response, 200);
     }
 
