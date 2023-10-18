@@ -29,14 +29,14 @@ class ApiAuthController extends Controller
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
         $user = User::create($request->toArray());
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        $response = [
-            'token' => $token,
-            'userId' => $user->id
-        ];
-        $user = new User;
+        // $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+        // $response = [
+        //     'token' => $token,
+        //     'userId' => $user->id
+        // ];
+        // $user = new User;
 
-        $user->user_id = $user->id;
+        // $user->user_id = $user->id;
 
         try {
             $user->save();
