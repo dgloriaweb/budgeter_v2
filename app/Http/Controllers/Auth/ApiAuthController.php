@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
 
 
 class ApiAuthController extends Controller
@@ -39,6 +40,7 @@ class ApiAuthController extends Controller
 
         try {
             $user->save();
+            event(new Registered($user));
         } catch (Exception $e) {
             report($e);
             return false;
