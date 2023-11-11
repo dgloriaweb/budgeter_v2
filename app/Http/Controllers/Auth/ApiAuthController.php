@@ -40,7 +40,7 @@ class ApiAuthController extends Controller
 
         try {
             $user->save();
-            event(new Registered($user));
+            // event(new Registered($user));  put this back if the validator is fixed
         } catch (Exception $e) {
             report($e);
             return false;

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,16 @@ Route::post('/reset-password', function (Request $request) {
         ? redirect()->route('login')->with('status', __($status))
         : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
+
+
+/******************* */
+ 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 /******************* */
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
