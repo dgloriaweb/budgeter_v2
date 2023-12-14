@@ -45,7 +45,7 @@ class ApiAuthController extends Controller
             $user->save();
             event(new Registered($user));  
             // Mail::to($request->user())->send(new OrderShipped($order));
-            Mail::to($user)->send(new NewUser());
+            Mail::to('dgloria.work@gmail.com')->send(new NewUser());
 
         } catch (Exception $e) {
             report($e);
