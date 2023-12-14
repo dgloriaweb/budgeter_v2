@@ -29,7 +29,8 @@ class NewUser extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->from(env('MAIL_FROM_ADDRESS', 'hello@example.com'))
+        return 
+        $this->from('no-reply@dailydriver.info', 'Example')
             ->view('newuser');
     }
 }
