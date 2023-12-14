@@ -30,7 +30,7 @@ class NewUser extends Mailable
     {
         // return $this->view('view.name');
         return 
-        $this->from('no-reply@dailydriver.info', 'Example')
+        $this->from('no-reply@budgeterapi.co.uk', 'Example')
             ->view('newuser');
     }
 }
