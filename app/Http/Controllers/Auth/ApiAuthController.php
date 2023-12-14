@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewUser;
+
 
 
 class ApiAuthController extends Controller
@@ -41,6 +44,9 @@ class ApiAuthController extends Controller
         try {
             $user->save();
             event(new Registered($user));  
+            // Mail::to($request->user())->send(new OrderShipped($order));
+            Mail::to($user)->send(new NewUser());
+
         } catch (Exception $e) {
             report($e);
             return false;
