@@ -99,6 +99,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', 'App\Http\Controllers\Auth\ApiAuthController@login')->name('login.api');
     Route::post('/register', 'App\Http\Controllers\Auth\ApiAuthController@register')->name('register.api');
     Route::post('/resetPassword', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('resetPassword.api');
+    Route::get('/getNearbyPlaces', 'App\Http\Controllers\GoogleMapsController@getNearbyPlaces')->name('gmaps.api.getnearbyplaces');
+    
 
     //test routes
     Route::post('/books', 'App\Http\Controllers\Tests\BookController@store');
