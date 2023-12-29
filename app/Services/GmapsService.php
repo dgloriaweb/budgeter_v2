@@ -25,6 +25,17 @@ class GmapsService
             return ['error' => 'Internal Server Error'];
         }
     }
+    public function getPlaceDistances($destinationPlaceId,$location)
+    {
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=place_id:{$destinationPlaceId}&origins={$location}&key={$this->apiKey}";
+        try {
+            $response = Http::get($url);
+            return $response->json();
+        } catch (\Exception $e) {
+            // Handle errors, log, etc.
+            return ['error' => 'Internal Server Error'];
+        }
+    }
     
 }
 

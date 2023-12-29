@@ -25,19 +25,33 @@ class GoogleMapsController extends Controller
 
         foreach ($keywords as $keyword) {
             $places = $this->gmapsService->getNearbyPlaces($location, $radius, $keyword);
+
+            // Add distance data to each place
+            foreach ($places['results'] as &$place) {
+                $distanceData = $this->gmapsService->getPlaceDistances($place['place_id'], $location);
+                $place['distance'] = $distanceData['rows'][0]['elements'][0]['distance']['text'] ?? null;
+            }
+
             // Merge the results into the combined array
             $combinedPlaces = array_merge($combinedPlaces, $places['results']);
         }
 
-        // Extract the actual array of places from the JSON response
-        $placesArray = $combinedPlaces ?? [];
-
         // Remove duplicates based on coordinates
-        $filteredPlaces = $this->removeDuplicates($placesArray);
+        $filteredPlaces = $this->removeDuplicates($combinedPlaces);
+
+        // Sort the array by distance
+        usort($filteredPlaces, function ($a, $b) {
+            // Convert distance strings to meters for comparison
+            $distanceA = $this->convertDistanceToMeters($a['distance']);
+            $distanceB = $this->convertDistanceToMeters($b['distance']);
+
+            return $distanceA <=> $distanceB;
+        });
 
         // Return the filtered places
         return response()->json(['results' => $filteredPlaces]);
     }
+
     private function removeDuplicates($placesArray)
     {
         $uniquePlaces = [];
@@ -68,5 +82,23 @@ class GoogleMapsController extends Controller
         $lng2 = round($coord2['lng'], $decimalPrecision);
 
         return ($lat1 == $lat2) && ($lng1 == $lng2);
+    }
+    private  function convertDistanceToMeters($distance)
+    {
+        // Assume distance is in the format "X.XX km" or "X.XX m"
+        $parts = explode(' ', $distance);
+
+        if (count($parts) === 2) {
+            $value = floatval($parts[0]);
+            $unit = strtolower($parts[1]);
+
+            if ($unit === 'km') {
+                return $value * 1000;
+            } elseif ($unit === 'm') {
+                return $value;
+            }
+        }
+
+        return 0; // Default to 0 if distance format is unexpected
     }
 }
