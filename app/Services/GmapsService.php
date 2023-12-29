@@ -13,9 +13,9 @@ class GmapsService
         $this->apiKey = config('services.gmaps.api_key');
     }
 
-    public function getNearbyPlaces($location, $radius = 5000)
+    public function getNearbyPlaces($location, $radius, $keyword)
     {
-        $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$location}&radius={$radius}&type=restaurant&keyword=mcdonalds&key={$this->apiKey}";
+        $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$location}&radius={$radius}&keyword={$keyword}&key={$this->apiKey}";
 
         try {
             $response = Http::get($url);
@@ -25,4 +25,6 @@ class GmapsService
             return ['error' => 'Internal Server Error'];
         }
     }
+    
 }
+
