@@ -80,12 +80,26 @@ Route::post('/reset-password', function (Request $request) {
 
 
 /******************* */
- 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
+
+Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['message' => 'Invalid user'], 404);
+    }
+
+    if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
+        return response()->json(['message' => 'Invalid verification link'], 401);
+    }
+
+    if ($user->hasVerifiedEmail()) {
+        return redirect('/')->with('message', 'Email already verified');
+    }
+
+    $user->markEmailAsVerified();
+
     return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware('signed')->name('verification.verify');
 
 /******************* */
 
