@@ -43,7 +43,7 @@ class ApiAuthController extends Controller
 
         try {
             $user->save();
-            event(new Registered($user));  
+            event(new Registered($user));
             // Mail::to($request->user())->send(new OrderShipped($order));
             // Mail::to('dgloria.work@gmail.com')->send(new NewUser());
 
@@ -84,5 +84,25 @@ class ApiAuthController extends Controller
         $token = $request->user()->token();
         $token->revoke();
         return response(['successMessage' => 'You have been successfully logged out!'], 200);
+    }
+    public function verifyEmail($id, $hash)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Invalid user'], 404);
+        }
+
+        if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
+            return response()->json(['message' => 'Invalid verification link'], 401);
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return redirect('/')->with('message', 'Email already verified');
+        }
+
+        $user->markEmailAsVerified();
+
+        return redirect('/');
     }
 }

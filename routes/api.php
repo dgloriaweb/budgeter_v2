@@ -81,25 +81,7 @@ Route::post('/reset-password', function (Request $request) {
 
 /******************* */
 
-Route::get('/email/verify/{id}/{hash}', function ($id, $hash) {
-    $user = User::find($id);
-
-    if (!$user) {
-        return response()->json(['message' => 'Invalid user'], 404);
-    }
-
-    if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
-        return response()->json(['message' => 'Invalid verification link'], 401);
-    }
-
-    if ($user->hasVerifiedEmail()) {
-        return redirect('/')->with('message', 'Email already verified');
-    }
-
-    $user->markEmailAsVerified();
-
-    return redirect('/');
-})->middleware('signed')->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\ApiAuthController@verifyEmail')->middleware('signed')->name('verification.verify');
 
 /******************* */
 
@@ -114,7 +96,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/register', 'App\Http\Controllers\Auth\ApiAuthController@register')->name('register.api');
     Route::post('/resetPassword', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('resetPassword.api');
     Route::get('/getNearbyPlaces', 'App\Http\Controllers\GoogleMapsController@getNearbyPlaces')->name('gmaps.api.getnearbyplaces');
-    
+
 
     //test routes
     Route::post('/books', 'App\Http\Controllers\Tests\BookController@store');
@@ -127,7 +109,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         // our routes to be protected will go in here
         Route::post('/logout', 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
         Route::get('/patreonupdate', 'App\Http\Controllers\PatreonController@getPatrons')->name('patreonupdate');
-
     });
 });
 Route::middleware('auth:api')->group(function () {
