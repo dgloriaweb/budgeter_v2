@@ -82,6 +82,11 @@ class UserPartnerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'enabled' => 'required|integer'
+        ]);
+        $userpartner = UserPartner::find($id);
+        $userpartner->save();
         //
     }
 

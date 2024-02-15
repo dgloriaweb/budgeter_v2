@@ -125,5 +125,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/partners', 'App\Http\Controllers\PartnerController@store');
     Route::get('/locations', 'App\Http\Controllers\LocationController@index')->name('locations');
     Route::get('/userpartners/{id}', 'App\Http\Controllers\UserPartnerController@show')->name('userpartners');
-    Route::get('/getuserpartners/{user_id}', 'App\Http\Controllers\UserPartnerController@getuserpartners')->name('userpartners');
+    Route::get('/getuserpartners/{user_id}', 'App\Http\Controllers\UserPartnerController@getuserpartners')->name('getuserpartners');
+    Route::get('/setuserpartner/{id}', 'App\Http\Controllers\UserPartnerController@update')->name('setuserpartner');
 });
