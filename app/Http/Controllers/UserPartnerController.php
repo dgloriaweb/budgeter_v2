@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPartner;
 use Illuminate\Http\Request;
 
 class UserPartnerController extends Controller
@@ -45,7 +46,20 @@ class UserPartnerController extends Controller
      */
     public function show($id)
     {
-        //
+        $dataById = UserPartner::where('id', $id)->get();
+        return $dataById;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getuserpartners($user_id)
+    {
+        $dataById = UserPartner::with('partner')->where('user_id', $user_id)->get();
+        return $dataById;
     }
 
     /**
