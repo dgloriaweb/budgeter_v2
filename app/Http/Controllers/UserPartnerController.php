@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\UserPartner;
 use Illuminate\Http\Request;
 
@@ -17,15 +18,6 @@ class UserPartnerController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -80,14 +72,52 @@ class UserPartnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'partner_id' => 'required|integer',
             'enabled' => 'required|integer'
         ]);
-        $userpartner = UserPartner::find($id);
-        $userpartner->save();
-        //
+        $userpartner =  UserPartner::where('user_id', $request->user_id)
+            ->where('partner_id', $request->partner_id)
+            ->first();
+        // if there is a result, update the enabled to 1
+        if ($userpartner) {
+            $userpartner->enabled = 1;
+            $userpartner->save();
+        }
+        // if it doesn't exist, create it
+        else {
+            return $this->create($request);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($request)
+    {
+        // check if the partner id exists
+        $partner = Partner::find($request->partner_id);
+        if ($partner) {
+
+            $validated = $request->validate([
+                'user_id' => 'required|integer',
+                'partner_id' => 'required|integer',
+                'enabled' => 'required|integer'
+            ]);
+            $userpartner = new UserPartner();
+            $userpartner->user_id = $request->user_id;
+            $userpartner->partner_id = $request->partner_id;
+            $userpartner->enabled = $request->enabled;
+            $userpartner->save();
+        }
+        else{
+            return response()->json(['message' => 'this partner id doesn\'t exist'], 500);
+        }
     }
 
     /**
