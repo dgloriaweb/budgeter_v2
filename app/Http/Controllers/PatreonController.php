@@ -12,6 +12,9 @@ class PatreonController extends Controller
     // Todo: make a service to run the code to connect to the api
     // https://www.patreon.com/oauth2/authorize?response_type=code&client_id=env("PATREON_CLIENT_ID")&redirect_uri=env("PATREON_REDIRECT_URI")
 
+    // this returns the one time code to be used below as $request->code 
+    // rGXclYVUrD06r4uaaGIZmA9iVSXLjC
+
 
     /**
      * Display a listing of the resource.
@@ -55,60 +58,6 @@ class PatreonController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Patreon  $patreon
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Patreon $patreon)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Patreon  $patreon
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Patreon $patreon)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Patreon  $patreon
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Patreon $patreon)
-    {
-        //
-    }
-    /**
      * run the service and update table.
      * @param  \App\Models\Patreon  $patreon
      */
@@ -123,7 +72,7 @@ class PatreonController extends Controller
         //test for token or unauthorized error
         if (array_key_exists('errors', $patrons) && $patrons['errors'][0]['status'] == '401') {
             $this->sendErrorEmail();
-            return response("Unauthorized. (Invalid Bearer Token)", 401);
+            return response("Unauthorized. (Invalid Patreon Bearer Token)", 401);
         }
 
         $patronsData = $patrons['included'];
