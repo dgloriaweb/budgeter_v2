@@ -58,7 +58,8 @@ class PatreonController extends Controller
     }
 
     /**
-     * run the service and update table.
+     * connect to the api, and store the data in the database
+     * this is scheduled to run every minute in app/Console/Kernel.php
      * @param  \App\Models\Patreon  $patreon
      */
     public function getPatrons(Patreon $patreon)
