@@ -39,6 +39,12 @@ class UserPartnerController extends Controller
     public function show($id)
     {
         $dataById = UserPartner::where('id', $id)->get();
+        // test for retrieving only partners that are enabled
+        // $dataById = UserPartner::where('id', $id)
+        // ->whereHas('partner', function ($query) {
+        //     $query->where('enabled', 1);
+        // })
+        // ->get();
         return $dataById;
     }
 
@@ -50,7 +56,11 @@ class UserPartnerController extends Controller
      */
     public function getuserpartners($user_id)
     {
-        $dataById = UserPartner::with('partner')->where('user_id', $user_id)->get();
+        $dataById = UserPartner::with('partner')->where('user_id', $user_id)
+            ->whereHas('partner', function ($query) {
+                $query->where('enabled', 1);
+            })
+            ->get();
         return $dataById;
     }
 
@@ -114,8 +124,7 @@ class UserPartnerController extends Controller
             $userpartner->partner_id = $request->partner_id;
             $userpartner->enabled = $request->enabled;
             $userpartner->save();
-        }
-        else{
+        } else {
             return response()->json(['message' => 'this partner id doesn\'t exist'], 500);
         }
     }

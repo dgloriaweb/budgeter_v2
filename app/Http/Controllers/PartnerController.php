@@ -14,7 +14,7 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        $partners = Partner::all();
+        $partners = Partner::where('enabled', 1)->get();
         return $partners;
     }
 
