@@ -1,86 +1,25 @@
 <?php
 
-use App\Http\Controllers\PartnerController;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-// Route::middleware('auth:api')->group(function () {
-//     Route::resource('users', UserController::class);
-// });
-
-// If developers want to use the middleware in a given route, all you need to do is add it to the route function like this:
-// Route::post('route','Controller@method')->middleware('api.superAdmin');
 
 /* password reset */
-//show the form to enter email
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->middleware('guest')->name('password.request');
+Route::group(['middleware' => ['guest']], function () {
+    //show the form to enter email
+    Route::get('/forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@showForm')->name('password.request');
 
-//process the form and send email
-Route::post('/forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email|exists:users,email']);
+    //process the form and send email
+    Route::post('/forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLink')->name('password.email');
 
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
+    /* after user clicked password reset link */
+    // show the password reset form
+    Route::get('/reset-password/{token}', 'App\Http\Controllers\Auth\ForgotPasswordController@passwordResetWithToken')->name('password.reset');
 
-    return $status === Password::RESET_LINK_SENT
-        ? back()->with(['status' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
-})->middleware('guest')->name('password.email');
-
-/* after user clicked password reset link */
-// show the password reset form
-Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.reset-password', ['token' => $token]);
-})->middleware('guest')->name('password.reset');
-
-// process the password reset form
-Route::post('/reset-password', function (Request $request) {
-    $request->validate([
-        'token' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8|confirmed',
-    ]);
-
-    $status = Password::reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function (User $user, string $password) {
-            $user->forceFill([
-                'password' => Hash::make($password)
-            ])->setRememberToken(Str::random(60));
-
-            $user->save();
-
-            event(new PasswordReset($user));
-        }
-    );
-
-    return $status === Password::PASSWORD_RESET
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withErrors(['email' => [__($status)]]);
-})->middleware('guest')->name('password.update');
-
+    // process the password reset form
+    Route::post('/reset-password',  'App\Http\Controllers\Auth\ForgotPasswordController@passwordUpdate')->name('password.update');
+});
 
 /******************* */
-
+/* email verification */
 Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\ApiAuthController@verifyEmail')->middleware('signed')->name('verification.verify');
 
 /******************* */
@@ -114,7 +53,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 Route::middleware('auth:api')->group(function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users');
     Route::get('/users/{id}', 'App\Http\Controllers\UserController@show')->name('user');
-    // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/mileages', 'App\Http\Controllers\MileageController@index')->name('mileages');
     Route::get('/last_mileage_data/{id}', 'App\Http\Controllers\MileageController@lastMileageData');
     Route::get('/mileages/{id}', 'App\Http\Controllers\MileageController@show');
