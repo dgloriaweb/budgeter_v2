@@ -19,9 +19,6 @@ php artisan make:model -mrc name (singular, capitalized)
 ### update patrons
 cronjob is updating the members every minute in patreoncontroller
 
+### password reset test run on mailhog
+see in zimwiki
 
-## api endpoints
-get('/partners')
-post('/partners')
-get('/mileages')
-get('/mileages/report/{id}')

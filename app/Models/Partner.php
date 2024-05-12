@@ -12,6 +12,7 @@ class Partner extends Model
 
     protected $fillable = [
         'partner',
+        'enabled'
     ];
     /** Relationships */
     

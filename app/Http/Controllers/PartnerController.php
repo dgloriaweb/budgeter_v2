@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PartnerController extends Controller
 {
@@ -19,15 +20,6 @@ class PartnerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,13 +27,27 @@ class PartnerController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'partner' => 'required|string|max:255',
-        ]);
-        
-        $request->partners()->create($validated);
-    }
+        try {
+            // Validate the request data
+            $validated = $request->validate([
+                'partner' => 'required|string|max:255',
+                'enabled' => 'required|boolean'
+            ]);
 
+            // Create the partner using the validated data
+            $partner = Partner::create($validated); // Call create method on Partner model
+
+            // Return a success response or any additional processing
+            return response()->json(['message' => 'Partner created successfully', 'partner' => $partner], 201);
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(['error' => $e->getMessage()], 422);
+        } catch (\Exception $e) {
+
+            // Return a more descriptive error response
+            return response()->json(['error' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
+        }
+    }
     /**
      * Display the specified resource.
      *
