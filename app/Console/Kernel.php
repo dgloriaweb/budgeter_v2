@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call('App\Http\Controllers\PatreonController@getPatrons')->everyMinute();
+        $schedule->command('queue:work')->everyFiveMinutes()->withoutOverlapping();
     }
 
     /**
