@@ -25,3 +25,36 @@ get('/partners')
 post('/partners')
 get('/mileages')
 get('/mileages/report/{id}')
+
+### release log
+
+# Plans for Q3-Q4
+- remove partners functionality
+- enhance amount input field in main app
+- save daily totals and create report
+- send email when new user is created
+- turn on restrictions after 1 month if user is not patreon supporter
+
+
+
+# Q2 2024 
+- addding password reset functionality
+- create mail sending for admin 
+- start working with tests
+- use scribe to auto-create API documentation
+- tidy up router file, extract all functions to relevant classes
+
+# Q1 2024
+- create loofinder
+- add Patreon and retrieve membership information for later use
+- add email verification requirement
+- add services
+
+# 2023
+- create main app, 
+- show amounts per partners and total amount
+- add swiper to reset fields
+- create login
+- create registration
+- release first version
+
