@@ -1,6 +1,7 @@
 <?php 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -17,9 +18,7 @@ class TestEmail extends Mailable
     {
         $to = Arr::get($this->to, '0.address');
 
-        return $this->view('emails.test_html')
-            ->text('emails.test_text')
-            ->attachFromStorageDisk('public', 'example.png')
+        return $this->view('testemail')
             ->mailersend(
                 // Template ID
                 null,
