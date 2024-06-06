@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TestEmail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,8 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
-
-
+use Illuminate\Support\Facades\Mail;
 
 class ApiAuthController extends Controller
 {
@@ -43,7 +43,10 @@ class ApiAuthController extends Controller
             event(new Registered($user));
             // Mail::to($request->user())->send(new OrderShipped($order));
             // Mail::to('dgloria.work@gmail.com')->send(new NewUser());
-
+            Mail::to('recipient@domain.com')
+                ->cc('cc@domain.com')
+                ->bcc('bcc@domain.com')
+                ->send(new TestEmail());
         } catch (Exception $e) {
             report($e);
             return false;
