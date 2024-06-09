@@ -80,7 +80,7 @@ return [
         ],
         'mailersend' => [
             'transport' => 'mailersend',
-            // 'key' => env('MAILERSEND_API_KEY'),
+            'key' => env('MAILERSEND_API_KEY'),
         ],
     ],
 
