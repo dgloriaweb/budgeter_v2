@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 class NewUser extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable, SerializesModels, ShouldQueue;
 
     /**
      * Create a new message instance.
@@ -29,8 +29,16 @@ class NewUser extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return 
-        $this->from('no-reply@budgeterapi.co.uk')
+        // {
+        //     "to": [{"email" : "dgloria.web@gmail.com"}],
+        //     "from": {"email":"no-reply@budgeterapi.co.uk"},
+        //     "subject": "hello from postman",
+        //     "text": "hello"
+        // }
+        return
+            $this->to('dgloria.web@gmail.com')
+            ->from('no-reply@budgeterapi.co.uk')
+            ->subject('hello from postman')
             ->view('newuser');
     }
 }
