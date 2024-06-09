@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\NewUser;
 use App\Mail\TestEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -22,6 +23,6 @@ class ExampleTest extends TestCase
         Mail::to('recipient@domain.com')
             ->cc('cc@domain.com')
             ->bcc('bcc@domain.com')
-            ->send(new TestEmail());
+            ->send(new NewUser());
     }
 }

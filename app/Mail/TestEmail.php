@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Mail;
 
 use Carbon\Carbon;
@@ -18,7 +18,8 @@ class TestEmail extends Mailable
     {
         $to = Arr::get($this->to, '0.address');
 
-        return $this->view('testemail')
+        return $this->view('emails.test_html')
+            ->text('emails.test_text')
             ->mailersend(
                 // Template ID
                 null,

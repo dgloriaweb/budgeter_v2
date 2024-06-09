@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewUser;
 use App\Mail\TestEmail;
 use App\Models\User;
 use Exception;
@@ -46,7 +47,7 @@ class ApiAuthController extends Controller
             Mail::to('recipient@domain.com')
                 ->cc('cc@domain.com')
                 ->bcc('bcc@domain.com')
-                ->send(new TestEmail());
+                ->send(new NewUser());
         } catch (Exception $e) {
             report($e);
             return false;
