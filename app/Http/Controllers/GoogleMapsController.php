@@ -41,7 +41,7 @@ class GoogleMapsController extends Controller
             }
         } else {
             $type = "meal_delivery"; // change this to the below request to find all that has food delivery
-            // https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB8su_DHPtJa9ZJj0QUyJV1nIVCZDcImNQ&place_id=ChIJ3Q1tAkdVdkgRnKZ4Td8bVFk&fields=name,opening_hours,delivery,takeout
+            // https://maps.googleapis.com/maps/api/place/details/json?key=<key>&place_id=ChIJ3Q1tAkdVdkgRnKZ4Td8bVFk&fields=name,opening_hours,delivery,takeout
 
 
             $places = $this->gmapsService->getNearbyPlaces($location, $radius, "type", $type);
