@@ -14,17 +14,37 @@ class GoogleMapsController extends Controller
         $this->gmapsService = $gmapsService;
     }
 
-    public function getNearbyPlaces(Request $request)
+    public function getNearbyPlacesControl(Request $request)
     {
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $radius = $request->input('radius', 2500);
         $location = $latitude . ',' . $longitude;
-        $keywords = ["mcdonalds", "asda", "sainsburys", "costa"];
         $combinedPlaces = [];
+        $type = $request->input('type');
 
-        foreach ($keywords as $keyword) {
-            $places = $this->gmapsService->getNearbyPlaces($location, $radius, $keyword);
+        if ($type == "loo") {
+            // todo, enable user to add types
+            $keywords = ["mcdonalds", "asda", "sainsburys", "costa"];
+
+            foreach ($keywords as $keyword) {
+                $places = $this->gmapsService->getNearbyPlaces($location, $radius, "keyword", $keyword);
+
+                // Add distance data to each place
+                foreach ($places['results'] as &$place) {
+                    $distanceData = $this->gmapsService->getPlaceDistances($place['place_id'], $location);
+                    $place['distance'] = $distanceData['rows'][0]['elements'][0]['distance']['text'] ?? null;
+                }
+
+                // Merge the results into the combined array
+                $combinedPlaces = array_merge($combinedPlaces, $places['results']);
+            }
+        } else {
+            $type = "meal_delivery"; // change this to the below request to find all that has food delivery
+            // https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB8su_DHPtJa9ZJj0QUyJV1nIVCZDcImNQ&place_id=ChIJ3Q1tAkdVdkgRnKZ4Td8bVFk&fields=name,opening_hours,delivery,takeout
+
+
+            $places = $this->gmapsService->getNearbyPlaces($location, $radius, "type", $type);
 
             // Add distance data to each place
             foreach ($places['results'] as &$place) {
@@ -35,7 +55,6 @@ class GoogleMapsController extends Controller
             // Merge the results into the combined array
             $combinedPlaces = array_merge($combinedPlaces, $places['results']);
         }
-
         // Remove duplicates based on coordinates
         $filteredPlaces = $this->removeDuplicates($combinedPlaces);
 

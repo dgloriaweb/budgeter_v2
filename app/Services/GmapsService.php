@@ -13,9 +13,9 @@ class GmapsService
         $this->apiKey = config('services.gmaps.api_key');
     }
 
-    public function getNearbyPlaces($location, $radius, $keyword)
+    public function getNearbyPlaces($location, $radius, $paramType, $paramValue)
     {
-        $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$location}&radius={$radius}&keyword={$keyword}&key={$this->apiKey}";
+        $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$location}&radius={$radius}&{$paramType}={$paramValue}&key={$this->apiKey}";
 
         try {
             $response = Http::get($url);
